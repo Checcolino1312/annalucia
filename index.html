@@ -32,7 +32,10 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, var(--primary) 0%, #b8e8ff 50%, var(--primary) 100%);
+            background: var(--primary);
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(242, 185, 80, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -42,22 +45,15 @@
         }
 
         body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(242, 185, 80, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(242, 185, 80, 0.05) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: -1;
+            display: none;
         }
 
         .container {
             background: rgba(255, 255, 255, 0.95);
+            /* Fallback per browser che non supportano backdrop-filter */
+            background: white;
+            background: rgba(255, 255, 255, 0.95);
+            -webkit-backdrop-filter: blur(var(--blur));
             backdrop-filter: blur(var(--blur));
             border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 24px;
@@ -66,6 +62,13 @@
             width: 100%;
             max-width: 420px;
             position: relative;
+        }
+
+        /* Fallback per dispositivi che non supportano backdrop-filter */
+        @supports not (backdrop-filter: blur(20px)) {
+            .container {
+                background: rgba(255, 255, 255, 0.98);
+            }
         }
 
         .container::before {
@@ -599,6 +602,9 @@
             
             // Scroll verso il video
             videoContainer.scrollIntoView({ behavior: 'smooth' });
+            
+            // Avvia il video automaticamente
+            video.play().catch(err => console.log('Autoplay bloccato:', err));
             
             // Tentativo di aprire a schermo intero dopo un breve delay
             setTimeout(() => {
