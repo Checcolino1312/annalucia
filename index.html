@@ -5,50 +5,132 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banca Digitale - Home Banking</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #ccf4ff;
+            --secondary: #f2b950;
+            --dark: #1a1a1a;
+            --white: #ffffff;
+            --gray-100: #f8fafc;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --blur: 20px;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, #b8e8ff 50%, var(--primary) 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(242, 185, 80, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(242, 185, 80, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
         }
 
         .container {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(var(--blur));
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 24px;
+            box-shadow: var(--shadow-xl);
             overflow: hidden;
-            width: 90%;
-            max-width: 450px;
-            min-height: 500px;
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
         }
 
         .header {
-            background: linear-gradient(135deg, #4a90e2, #357abd);
-            color: white;
-            padding: 30px 20px;
+            background: linear-gradient(135deg, var(--secondary), #e6a743);
+            color: var(--white);
+            padding: 20px 24px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: rotate 6s linear infinite;
+        }
+
+        .header-logo {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            position: relative;
+            z-index: 2;
+            filter: brightness(0) invert(1);
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .header h1 {
-            font-size: 24px;
-            margin-bottom: 10px;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 2;
+            letter-spacing: -0.025em;
         }
 
         .header p {
-            opacity: 0.9;
+            opacity: 0.95;
             font-size: 14px;
+            font-weight: 400;
+            position: relative;
+            z-index: 2;
         }
 
         .content {
-            padding: 30px;
+            padding: 32px 24px;
         }
 
         .login-form {
@@ -61,95 +143,194 @@
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: #333;
-            font-weight: 500;
+            color: var(--gray-700);
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: -0.025em;
         }
 
         .form-group input {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e1e5e9;
-            border-radius: 8px;
+            padding: 16px 20px;
+            border: 2px solid var(--gray-200);
+            border-radius: 16px;
             font-size: 16px;
-            transition: border-color 0.3s ease;
+            font-weight: 500;
+            background: var(--white);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: inherit;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: #4a90e2;
+            border-color: var(--secondary);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(242, 185, 80, 0.1);
+            transform: translateY(-2px);
         }
 
         .btn {
             width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #4a90e2, #357abd);
-            color: white;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, var(--secondary), #e6a743);
+            color: var(--white);
             border: none;
-            border-radius: 8px;
+            border-radius: 16px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: inherit;
+            letter-spacing: -0.025em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(242, 185, 80, 0.3);
         }
 
         .btn:active {
-            transform: translateY(0);
+            transform: translateY(-1px);
         }
 
         .balance-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, var(--dark) 0%, #2d2d2d 100%);
+            color: var(--white);
+            padding: 32px 28px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .balance-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+            opacity: 0.1;
+        }
+
+        .balance-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+            opacity: 0.08;
         }
 
         .balance-label {
             font-size: 14px;
-            opacity: 0.9;
-            margin-bottom: 10px;
+            opacity: 0.8;
+            margin-bottom: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 2;
         }
 
         .balance-amount {
-            font-size: 36px;
-            font-weight: bold;
-            margin-bottom: 5px;
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 2;
+            letter-spacing: -0.05em;
         }
 
         .account-number {
             font-size: 12px;
-            opacity: 0.8;
+            opacity: 0.7;
+            font-family: 'SF Mono', Monaco, monospace;
+            position: relative;
+            z-index: 2;
+            letter-spacing: 1px;
         }
 
         .welcome-message {
-            background: #f8f9fa;
-            border-left: 4px solid #28a745;
-            padding: 20px;
-            margin-bottom: 25px;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(242, 185, 80, 0.2);
+            border-left: 4px solid var(--secondary);
+            padding: 28px;
+            margin-bottom: 24px;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-message::before {
+            content: '30';
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: linear-gradient(135deg, var(--secondary), #e6a743);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 16px;
+            box-shadow: var(--shadow-lg);
         }
 
         .welcome-message h3 {
-            color: #28a745;
-            margin-bottom: 10px;
-            font-size: 18px;
+            color: var(--gray-700);
+            margin-bottom: 12px;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.025em;
         }
 
         .welcome-message p {
-            color: #6c757d;
+            color: var(--gray-600);
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .friends-list {
+            margin-top: 16px;
+            font-size: 13px;
+            color: var(--gray-600);
+            font-weight: 600;
             line-height: 1.5;
+            background: rgba(242, 185, 80, 0.1);
+            padding: 16px;
+            border-radius: 12px;
         }
 
         .video-section {
@@ -164,37 +345,46 @@
         .video-container video {
             width: 100%;
             max-width: 350px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-radius: 16px;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .error-message {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 10px 15px;
-            border-radius: 5px;
-            margin-bottom: 15px;
+            background: linear-gradient(135deg, #fef2f2, #fecaca);
+            color: #dc2626;
+            padding: 16px 20px;
+            border: 1px solid #fca5a5;
+            border-radius: 12px;
+            margin-bottom: 20px;
             font-size: 14px;
+            font-weight: 600;
             display: none;
         }
 
         .logout-btn {
-            background: #6c757d;
-            margin-top: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--gray-700);
+            border: 1px solid var(--gray-300);
+            margin-top: 20px;
             font-size: 14px;
-            padding: 8px 15px;
+            padding: 12px 24px;
             width: auto;
             display: inline-block;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
         }
 
         .logout-btn:hover {
-            background: #5a6268;
+            background: var(--white);
+            color: var(--gray-700);
+            transform: translateY(-2px);
         }
 
-        @keyframes slideIn {
+        @keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -202,23 +392,118 @@
             }
         }
 
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
         .dashboard.show {
-            animation: slideIn 0.5s ease-out;
+            animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Glassmorphism effects */
+        .glass {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        /* Responsive per smartphone */
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+            
+            .container {
+                border-radius: 20px;
+            }
+            
+            .content {
+                padding: 24px 20px;
+            }
+            
+            .header {
+                padding: 28px 20px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .balance-amount {
+                font-size: 36px;
+            }
+            
+            .welcome-message {
+                padding: 24px 20px;
+            }
+            
+            .friends-list {
+                font-size: 12px;
+                padding: 14px;
+            }
+
+            .form-group input {
+                padding: 14px 16px;
+            }
+
+            .btn {
+                padding: 14px 20px;
+            }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            .container {
+                background: rgba(26, 26, 26, 0.95);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .welcome-message {
+                background: rgba(42, 42, 42, 0.8);
+                color: var(--gray-200);
+            }
+
+            .welcome-message h3 {
+                color: var(--white);
+            }
+
+            .welcome-message p {
+                color: var(--gray-300);
+            }
+
+            .friends-list {
+                background: rgba(242, 185, 80, 0.15);
+                color: var(--gray-300);
+            }
+
+            .form-group label {
+                color: var(--gray-200);
+            }
+
+            .form-group input {
+                background: rgba(42, 42, 42, 0.8);
+                border-color: rgba(255, 255, 255, 0.1);
+                color: var(--white);
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🏦 Banca Digitale</h1>
-            <p>Accesso sicuro al tuo conto</p>
+            <img src="logoanna.png" alt="Anna Turns 30 Bank" class="header-logo">
         </div>
         
         <div class="content">
             <!-- Login Form -->
             <div class="login-form" id="loginForm">
                 <div class="error-message" id="errorMessage">
-                    Nome account o password non corretti. Riprova.
+                    Credenziali non valide. Riprova.
                 </div>
                 
                 <div class="form-group">
@@ -231,7 +516,7 @@
                     <input type="password" id="password" placeholder="2808" value="2808" required>
                 </div>
                 
-                <button class="btn" onclick="login()">Accedi</button>
+                <button class="btn" onclick="login()">Accedi al Conto</button>
             </div>
 
             <!-- Dashboard -->
@@ -239,20 +524,22 @@
                 <div class="balance-card">
                     <div class="balance-label">Saldo disponibile</div>
                     <div class="balance-amount">€ 330,00</div>
-                    <div class="account-number">Conto: IT60 X054 2808 0030 0690 00690 123</div>
+                    <div class="account-number">IT60 X054 2808 0030 0690 00690 123</div>
                 </div>
 
                 <div class="welcome-message">
                     <h3>🎉 Tanti Auguri Annalucia!</h3>
-                    <p>Felice 30esimo compleanno. Ti auguriamo tutto il meglio!</p>
-                    <p style="margin-top: 15px; font-weight: 500; color: #495057;">Davide, Francesca, Sara, Attilio, Federica, Annachiara, Gabriele, Pietro, Daniela, Alessia, Alessandrone, Salvatore Matri Giodice, Giorgia, Irene, Mattia, Checcolino</p>
+                    <p>Felice 30° compleanno! Che questo nuovo anno ti porti gioia, successo e tante soddisfazioni.</p>
+                    <div class="friends-list">
+                        Con tanto affetto da: Davide, Francesca, Sara, Attilio, Federica, Annachiara, Gabriele, Pietro, Daniela, Alessia, Alessandrone, Salvatore Matri Giodice, Giorgia, Irene, Mattia, Checcolino
+                    </div>
                 </div>
 
                 <div class="video-section">
                     <button class="btn" onclick="showVideo()">🎥 Guarda il Video di Auguri</button>
                     
                     <div class="video-container" id="videoContainer">
-                        <video controls autoplay>
+                        <video controls autoplay muted>
                             <source src="antonio.mp4" type="video/mp4">
                             Il tuo browser non supporta i video HTML5.
                         </video>
@@ -293,20 +580,36 @@
                 // Effetto shake per i campi
                 const inputs = document.querySelectorAll('input');
                 inputs.forEach(input => {
-                    input.style.borderColor = '#dc3545';
+                    input.style.borderColor = '#dc2626';
+                    input.style.transform = 'translateX(5px)';
                     setTimeout(() => {
-                        input.style.borderColor = '#e1e5e9';
-                    }, 2000);
+                        input.style.borderColor = '#e2e8f0';
+                        input.style.transform = 'translateX(0)';
+                    }, 300);
                 });
             }
         }
 
         function showVideo() {
             const videoContainer = document.getElementById('videoContainer');
+            const video = videoContainer.querySelector('video');
+            
             videoContainer.style.display = 'block';
+            videoContainer.style.animation = 'fadeIn 0.5s ease-out';
             
             // Scroll verso il video
             videoContainer.scrollIntoView({ behavior: 'smooth' });
+            
+            // Tentativo di aprire a schermo intero dopo un breve delay
+            setTimeout(() => {
+                if (video.requestFullscreen) {
+                    video.requestFullscreen().catch(err => console.log('Fullscreen non supportato:', err));
+                } else if (video.webkitRequestFullscreen) {
+                    video.webkitRequestFullscreen().catch(err => console.log('Fullscreen non supportato:', err));
+                } else if (video.msRequestFullscreen) {
+                    video.msRequestFullscreen().catch(err => console.log('Fullscreen non supportato:', err));
+                }
+            }, 500);
         }
 
         function logout() {
@@ -336,13 +639,14 @@
 
         // Animazione di caricamento iniziale
         window.addEventListener('load', function() {
-            document.querySelector('.container').style.opacity = '0';
-            document.querySelector('.container').style.transform = 'translateY(30px)';
+            const container = document.querySelector('.container');
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(40px) scale(0.95)';
             
             setTimeout(() => {
-                document.querySelector('.container').style.transition = 'all 0.6s ease-out';
-                document.querySelector('.container').style.opacity = '1';
-                document.querySelector('.container').style.transform = 'translateY(0)';
+                container.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0) scale(1)';
             }, 100);
         });
     </script>
